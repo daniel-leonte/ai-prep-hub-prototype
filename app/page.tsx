@@ -10,7 +10,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="text-center py-16 bg-gradient-to-b from-background to-muted rounded-lg shadow-sm">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-          Prepare for AI Startup Jobs with YC Backing
+          Prepare for AI Startup Jobs
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
           AI Prep Hub empowers engineers by simplifying job preparation for early-stage AI startups. Craft tailored
