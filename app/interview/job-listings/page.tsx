@@ -9,132 +9,113 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { StageIndicator } from "@/components/stage-indicator"
-import { SearchIcon, BriefcaseIcon, MapPinIcon, Building2Icon, ArrowRightIcon } from "lucide-react"
+import { SearchIcon, BriefcaseIcon, MapPinIcon, Building2Icon, ArrowRightIcon, DollarSignIcon, ClockIcon, UsersIcon, CheckCircleIcon, PlusIcon } from "lucide-react"
+import { mockJobListings, mockCustomJobs, mockAIStartups, mockCustomCompanies } from "@/lib/mockData"
+import { CustomJobBadge } from "@/components/job-input/CustomJobBadge"
+import { JobInputDialog } from "@/components/job-input/JobInputDialog"
 
 export default function JobListingsPage() {
   const [isJobDetailsModalOpen, setIsJobDetailsModalOpen] = useState(false)
+  const [isJobDialogOpen, setIsJobDialogOpen] = useState(false)
   const [selectedJob, setSelectedJob] = useState<any>(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedFilter, setSelectedFilter] = useState("all")
+  
+  // Combine regular jobs with custom jobs
+  const allJobs = [...mockJobListings, ...mockCustomJobs]
+  const allCompanies = [...mockAIStartups, ...mockCustomCompanies]
+  
+  const filteredJobs = allJobs.filter(job => {
+    const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          job.company.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = selectedFilter === "all" || 
+                          (selectedFilter === "fullstack" && job.title.toLowerCase().includes("full")) ||
+                          (selectedFilter === "backend" && job.title.toLowerCase().includes("backend")) ||
+                          (selectedFilter === "frontend" && job.title.toLowerCase().includes("frontend")) ||
+                          (selectedFilter === "platform" && (job.title.toLowerCase().includes("platform") || job.title.toLowerCase().includes("devops")))
+    return matchesSearch && matchesFilter
+  })
 
-  const dummyJobs = [
-    {
-      id: "1",
-      title: "ML Engineer at YC AI Startup",
-      company: "Generated Startup X",
-      location: "Remote",
-      snippet: "Develop and deploy machine learning models for cutting-edge AI products...",
-      fullDescription: `
-**Responsibilities:**
-- Design, develop, and deploy machine learning models and algorithms.
-- Build and maintain scalable data pipelines for AI applications.
-- Collaborate with research scientists and product teams to integrate AI solutions.
-- Optimize existing models for performance and efficiency.
-- Stay up-to-date with the latest advancements in AI/ML.
-
-**Requirements:**
-- 2+ years of experience in machine learning engineering.
-- Strong proficiency in Python and ML frameworks (TensorFlow, PyTorch).
-- Experience with cloud platforms (AWS, GCP, Azure) and MLOps practices.
-- Solid understanding of data structures, algorithms, and software design.
-- Bachelor's or Master's degree in Computer Science, AI, or related field.
-
-**About Generated Startup X:**
-We are a fast-growing YC-backed AI startup building the next generation of intelligent systems for [specific industry, e.g., healthcare, finance]. Our mission is to [dummy mission statement]. We foster a culture of innovation, collaboration, and continuous learning.
-      `,
-    },
-    {
-      id: "2",
-      title: "AI Research Scientist (NLP Focus)",
-      company: "InnovateAI Labs",
-      location: "San Francisco, CA",
-      snippet: "Conduct research in natural language processing, develop novel NLP models...",
-      fullDescription: `
-**Responsibilities:**
-- Conduct cutting-edge research in natural language processing (NLP) and related AI fields.
-- Develop and implement novel NLP models and algorithms.
-- Publish research findings in top-tier conferences and journals.
-- Collaborate with engineering teams to transition research prototypes into production.
-- Mentor junior researchers and contribute to the scientific community.
-
-**Requirements:**
-- Ph.D. in Computer Science, AI, Linguistics, or a related field with a focus on NLP.
-- Strong publication record in major NLP/AI conferences (e.g., ACL, EMNLP, NeurIPS).
-- Expertise in deep learning frameworks (e.g., PyTorch, TensorFlow) and Python.
-- Experience with large-scale language models and generative AI.
-- Excellent communication and collaboration skills.
-
-**About InnovateAI Labs:**
-InnovateAI Labs is a YC-backed startup pushing the boundaries of AI research, particularly in natural language understanding and generation. We are a team of passionate researchers and engineers dedicated to solving complex real-world problems with AI.
-      `,
-    },
-    {
-      id: "3",
-      title: "Fullstack AI Developer",
-      company: "Synergy AI",
-      location: "New York, NY (Hybrid)",
-      snippet: "Build end-to-end AI-powered applications, from backend services to frontend UIs...",
-      fullDescription: `
-**Responsibilities:**
-- Develop and maintain full-stack applications with integrated AI capabilities.
-- Design and implement robust APIs for AI model serving.
-- Build responsive and intuitive user interfaces using modern frontend frameworks.
-- Work closely with AI/ML engineers to deploy and integrate models.
-- Ensure application scalability, security, and performance.
-
-**Requirements:**
-- 3+ years of experience in full-stack development.
-- Proficiency in a backend language (e.g., Node.js, Python) and a frontend framework (e.g., React, Next.js).
-- Experience integrating with AI/ML models or APIs.
-- Familiarity with database systems (SQL/NoSQL) and cloud services.
-- Strong problem-solving skills and ability to work across the stack.
-
-**About Synergy AI:**
-Synergy AI is a YC-backed startup focused on creating intelligent software solutions that enhance productivity and decision-making for businesses. We believe in a holistic approach to AI development, combining robust engineering with cutting-edge machine learning.
-      `,
-    },
-  ]
 
   const handleViewDetails = (job: any) => {
     setSelectedJob(job)
     setIsJobDetailsModalOpen(true)
   }
+  
+  const handleJobSaved = (job: any) => {
+    // Mock handling of saved job
+    console.log("Job saved:", job)
+  }
+  
+  const selectedCompany = selectedJob ? allCompanies.find(c => c.id === selectedJob.companyId) || allCompanies[0] : allCompanies[0]
 
   return (
     <div className="space-y-8">
       <StageIndicator stage="Stage 2" title="Browse AI-Generated Job Postings for Practice" />
 
+      {/* Add Your Own Job Call-to-Action */}
+      <Card className="border-dashed border-2 border-primary/50 bg-primary/5">
+        <CardContent className="flex flex-col md:flex-row items-center justify-between p-6">
+          <div className="space-y-2 text-center md:text-left mb-4 md:mb-0">
+            <h3 className="text-lg font-semibold">Don't see your target job?</h3>
+            <p className="text-muted-foreground">Add any job posting from LinkedIn, Indeed, or company websites to practice with real opportunities.</p>
+          </div>
+          <Button onClick={() => setIsJobDialogOpen(true)} size="lg" className="flex items-center gap-2">
+            <PlusIcon className="h-4 w-4" />
+            Add Your Own Job
+          </Button>
+        </CardContent>
+      </Card>
+
       {/* Search/Filter Form */}
       <Card>
         <CardHeader>
-          <CardTitle>Find Practice Jobs</CardTitle>
-          <CardDescription>Generate dummy job postings to simulate real-world roles.</CardDescription>
+          <CardTitle>Browse AI Startup Engineering Roles</CardTitle>
+          <CardDescription>Real-world software engineering positions at YC-backed AI companies</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-3">
+        <CardContent className="grid gap-4 md:grid-cols-4">
           <div className="grid gap-2">
-            <Label htmlFor="role">Role</Label>
+            <Label htmlFor="search">Search Jobs</Label>
             <div className="relative">
               <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input id="role" placeholder="e.g., AI Engineer, ML Scientist" className="pl-9" />
+              <Input 
+                id="search" 
+                placeholder="Search by role or company" 
+                className="pl-9"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="skills">Skills / Startup Type</Label>
-            <Select>
-              <SelectTrigger id="skills">
-                <SelectValue placeholder="Select filter" />
+            <Label htmlFor="filter">Role Type</Label>
+            <Select value={selectedFilter} onValueChange={setSelectedFilter}>
+              <SelectTrigger id="filter">
+                <SelectValue placeholder="All roles" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="llm">LLM / Generative AI</SelectItem>
-                <SelectItem value="cv">Computer Vision</SelectItem>
-                <SelectItem value="nlp">Natural Language Processing</SelectItem>
-                <SelectItem value="fintech">AI in Fintech</SelectItem>
-                <SelectItem value="healthtech">AI in Healthtech</SelectItem>
+                <SelectItem value="all">All Roles</SelectItem>
+                <SelectItem value="fullstack">Full-Stack</SelectItem>
+                <SelectItem value="backend">Backend</SelectItem>
+                <SelectItem value="frontend">Frontend</SelectItem>
+                <SelectItem value="platform">Platform/DevOps</SelectItem>
               </SelectContent>
             </Select>
           </div>
+          <div className="grid gap-2">
+            <Label className="text-sm text-muted-foreground">Results</Label>
+            <div className="flex items-center h-10">
+              <Badge variant="secondary" className="text-sm">
+                {filteredJobs.length} positions found
+              </Badge>
+            </div>
+          </div>
           <div className="flex items-end">
-            <Button className="w-full">
-              <BriefcaseIcon className="mr-2 h-4 w-4" /> Generate Jobs (Dummy)
+            <Button className="w-full" onClick={() => {setSearchTerm(""); setSelectedFilter("all");}}>
+              <BriefcaseIcon className="mr-2 h-4 w-4" /> Clear Filters
             </Button>
           </div>
         </CardContent>
@@ -142,55 +123,303 @@ Synergy AI is a YC-backed startup focused on creating intelligent software solut
 
       {/* List of Job Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {dummyJobs.map((job) => (
-          <Card key={job.id} className="flex flex-col">
-            <CardHeader>
-              <CardTitle className="text-lg">{job.title}</CardTitle>
-              <CardDescription className="flex items-center gap-1">
-                <Building2Icon className="h-4 w-4" /> {job.company}
-              </CardDescription>
-              <CardDescription className="flex items-center gap-1">
-                <MapPinIcon className="h-4 w-4" /> {job.location}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <p className="text-sm text-muted-foreground line-clamp-3">{job.snippet}</p>
-            </CardContent>
-            <div className="p-6 pt-0">
-              <Button className="w-full" onClick={() => handleViewDetails(job)}>
-                View Details
-              </Button>
-            </div>
-          </Card>
-        ))}
+        {filteredJobs.map((job) => {
+          const company = allCompanies.find(c => c.id === job.companyId) || allCompanies[0]
+          return (
+            <Card key={job.id} className="flex flex-col hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-lg leading-tight">{job.title}</CardTitle>
+                      {job.isCustom && <CustomJobBadge size="sm" />}
+                    </div>
+                    <CardDescription className="flex items-center gap-1">
+                      <span className="text-base">{company.logo}</span>
+                      <Building2Icon className="h-4 w-4" /> 
+                      {job.company}
+                    </CardDescription>
+                  </div>
+                  <Badge variant="outline" className="text-xs">{company.stage}</Badge>
+                </div>
+                <div className="space-y-1 text-sm">
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <MapPinIcon className="h-4 w-4" /> 
+                    {job.location}
+                  </div>
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <DollarSignIcon className="h-4 w-4" /> 
+                    {job.salary}
+                  </div>
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <ClockIcon className="h-4 w-4" /> 
+                    Posted {job.posted}
+                  </div>
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <UsersIcon className="h-4 w-4" /> 
+                    {job.applicants} applicants
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1 space-y-3">
+                <p className="text-sm text-muted-foreground line-clamp-2">{job.snippet}</p>
+                <div className="flex flex-wrap gap-1">
+                  {job.techStack.slice(0, 4).map((tech) => (
+                    <Badge key={tech} variant="secondary" className="text-xs">{tech}</Badge>
+                  ))}
+                  {job.techStack.length > 4 && (
+                    <Badge variant="outline" className="text-xs">+{job.techStack.length - 4}</Badge>
+                  )}
+                </div>
+              </CardContent>
+              <div className="p-6 pt-0 space-y-2">
+                <Button className="w-full" onClick={() => handleViewDetails(job)}>
+                  View Details & Apply
+                </Button>
+                <div className="text-xs text-center text-muted-foreground">
+                  {job.experience} • {job.type}
+                </div>
+              </div>
+            </Card>
+          )
+        })}
       </div>
 
       <Dialog open={isJobDetailsModalOpen} onOpenChange={setIsJobDetailsModalOpen}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{selectedJob?.title}</DialogTitle>
-            <DialogDescription className="flex items-center gap-1">
-              <Building2Icon className="h-4 w-4" /> {selectedJob?.company} &bull; <MapPinIcon className="h-4 w-4" />{" "}
-              {selectedJob?.location}
-            </DialogDescription>
+            <div className="flex items-start justify-between">
+              <div>
+                <DialogTitle className="text-xl">{selectedJob?.title}</DialogTitle>
+                <DialogDescription className="flex items-center gap-4 mt-2">
+                  <div className="flex items-center gap-1">
+                    <span className="text-base">{selectedCompany?.logo}</span>
+                    <Building2Icon className="h-4 w-4" /> 
+                    {selectedJob?.company}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MapPinIcon className="h-4 w-4" />
+                    {selectedJob?.location}
+                  </div>
+                  <Badge variant="outline">{selectedCompany?.stage}</Badge>
+                </DialogDescription>
+              </div>
+            </div>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Label htmlFor="job-description-full">Full Job Description</Label>
-            <Textarea
-              id="job-description-full"
-              readOnly
-              rows={15}
-              defaultValue={selectedJob?.fullDescription}
-              className="font-mono text-sm"
-            />
+          
+          <Tabs defaultValue="description" className="w-full mt-4">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="description">Job Details</TabsTrigger>
+              <TabsTrigger value="company">Company Info</TabsTrigger>
+              <TabsTrigger value="requirements">Requirements</TabsTrigger>
+              <TabsTrigger value="interview">Interview Prep</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="description" className="mt-4 space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Position Overview</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Salary</p>
+                      <p className="font-medium">{selectedJob?.salary}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Experience</p>
+                      <p className="font-medium">{selectedJob?.experience}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Type</p>
+                      <p className="font-medium">{selectedJob?.type}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Posted</p>
+                      <p className="font-medium">{selectedJob?.posted}</p>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Responsibilities</h4>
+                    <ul className="space-y-1">
+                      {selectedJob?.responsibilities?.map((resp: string, idx: number) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm">
+                          <CheckCircleIcon className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="company" className="mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">About {selectedCompany?.name}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm">{selectedCompany?.description}</p>
+                  
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Founded</p>
+                      <p className="font-medium">{selectedCompany?.founded}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Team Size</p>
+                      <p className="font-medium">{selectedCompany?.size} employees</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Location</p>
+                      <p className="font-medium">{selectedCompany?.location}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Website</p>
+                      <p className="font-medium">{selectedCompany?.website}</p>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <p className="text-muted-foreground mb-2">Tech Stack</p>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedCompany?.techStack.map((tech: string) => (
+                        <Badge key={tech} variant="secondary" className="text-xs">{tech}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <p className="text-muted-foreground mb-2">AI Technologies</p>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedCompany?.aiTech.map((tech: string) => (
+                        <Badge key={tech} variant="outline" className="text-xs">{tech}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="requirements" className="mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">What We're Looking For</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">Required Skills</h4>
+                    <ul className="space-y-1">
+                      {selectedJob?.requirements?.map((req: string, idx: number) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm">
+                          <CheckCircleIcon className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                          <span>{req}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  {selectedJob?.niceToHave && (
+                    <div>
+                      <h4 className="font-semibold mb-2">Nice to Have</h4>
+                      <ul className="space-y-1">
+                        {selectedJob.niceToHave.map((item: string, idx: number) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm">
+                            <span className="text-muted-foreground mt-0.5">•</span>
+                            <span className="text-muted-foreground">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Tech Stack Match</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedJob?.techStack.map((tech: string) => (
+                        <Badge key={tech} variant="default" className="text-xs">{tech}</Badge>
+                      ))}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {Math.floor(Math.random() * 20) + 80}% match with your skills
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            
+            <TabsContent value="interview" className="mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Interview Preparation</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">What to Expect</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline">Technical Screen</Badge>
+                        <span className="text-muted-foreground">45 min coding + system design</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline">Team Interview</Badge>
+                        <span className="text-muted-foreground">Cultural fit + project discussion</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline">Final Round</Badge>
+                        <span className="text-muted-foreground">Founder/CTO conversation</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Key Topics to Review</h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Badge variant="secondary">React/Next.js patterns</Badge>
+                      <Badge variant="secondary">API design</Badge>
+                      <Badge variant="secondary">Database optimization</Badge>
+                      <Badge variant="secondary">AI integration best practices</Badge>
+                      <Badge variant="secondary">System scalability</Badge>
+                      <Badge variant="secondary">Cost optimization</Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-primary/10 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Pro Tips for {selectedCompany?.name}</h4>
+                    <ul className="text-sm space-y-1">
+                      <li>• Show genuine interest in {selectedCompany?.description.toLowerCase()}</li>
+                      <li>• Prepare questions about their {selectedCompany?.aiTech[0]} implementation</li>
+                      <li>• Discuss scaling challenges relevant to {selectedCompany?.stage} stage</li>
+                      <li>• Have examples ready of {selectedJob?.techStack.slice(0, 2).join(' and ')} projects</li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+          
+          <div className="flex gap-2 mt-6">
+            <Button asChild className="flex-1">
+              <Link href={`/interview/mock-room?job=${selectedJob?.id}`}>
+                <ArrowRightIcon className="mr-2 h-4 w-4" /> Practice Interview
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/apply/resume-builder">
+                Tailor Resume
+              </Link>
+            </Button>
           </div>
-          <Button asChild className="w-full">
-            <Link href={`/interview/mock-room?job=${selectedJob?.id}`}>
-              <ArrowRightIcon className="mr-2 h-4 w-4" /> Start Mock Interview
-            </Link>
-          </Button>
         </DialogContent>
       </Dialog>
+      
+      <JobInputDialog 
+        open={isJobDialogOpen} 
+        onOpenChange={setIsJobDialogOpen}
+        onJobSaved={handleJobSaved}
+      />
     </div>
   )
 }
