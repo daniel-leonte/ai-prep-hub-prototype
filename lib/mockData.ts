@@ -1011,6 +1011,16 @@ export const mockInterviewFeedback = {
         "Consider mocking strategies for AI APIs",
         "Think about testing non-deterministic outputs"
       ]
+    },
+    {
+      area: "Interview Storytelling",
+      feedback: "Hesitated when asked for specific examples from past projects.",
+      suggestions: [
+        "Prepare 3-4 detailed project stories with challenges, actions, and results",
+        "Practice the STAR method (Situation, Task, Action, Result) for behavioral questions",
+        "Have concrete metrics ready (e.g., 'reduced load time by 60%', '10K+ users')",
+        "Prepare examples that show problem-solving, teamwork, and leadership"
+      ]
     }
   ],
   interviewerNotes: {
