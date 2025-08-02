@@ -206,7 +206,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
       </Card>
 
       <Button className="w-full" variant="destructive" onClick={handleEndInterview}>
-        End Interview (Dummy)
+        End Interview - Press to see feedback (Dummy)
       </Button>
 
       <Dialog open={isFeedbackModalOpen} onOpenChange={setIsFeedbackModalOpen}>
