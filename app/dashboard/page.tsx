@@ -33,60 +33,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Progress Metrics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Resumes Created</CardTitle>
-            <FileTextIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{mockDashboardMetrics.resumesCreated}</div>
-            <p className="text-xs text-muted-foreground">Tailored for AI startup roles</p>
-            <Progress value={75} className="mt-2" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Emails Generated</CardTitle>
-            <MailIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{mockDashboardMetrics.emailsGenerated}</div>
-            <p className="text-xs text-muted-foreground">Response rate: {mockDashboardMetrics.responseRate}</p>
-            <div className="flex items-center mt-2">
-              <TrendingUpIcon className="h-3 w-3 text-green-500 mr-1" />
-              <span className="text-xs text-green-500">+12% this week</span>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Interviews Practiced</CardTitle>
-            <MicIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{mockDashboardMetrics.interviewsPracticed}</div>
-            <p className="text-xs text-muted-foreground">Avg score: {mockDashboardMetrics.averageScore}</p>
-            <Progress value={85} className="mt-2" />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Applications Active</CardTitle>
-            <TargetIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{mockDashboardMetrics.applicationsSubmitted}</div>
-            <p className="text-xs text-muted-foreground">{mockDashboardMetrics.interviewsScheduled} interviews scheduled</p>
-            <div className="flex gap-1 mt-2">
-              <Badge variant="outline" className="text-xs">Full-Stack</Badge>
-              <Badge variant="outline" className="text-xs">Backend</Badge>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
       {/* Quick-Start Buttons */}
       <Card>
         <CardHeader>
@@ -140,6 +86,60 @@ export default function DashboardPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Progress Metrics */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Resumes Created</CardTitle>
+            <FileTextIcon className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{mockDashboardMetrics.resumesCreated}</div>
+            <p className="text-xs text-muted-foreground">Tailored for AI startup roles</p>
+            <Progress value={75} className="mt-2" />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Emails Generated</CardTitle>
+            <MailIcon className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{mockDashboardMetrics.emailsGenerated}</div>
+            <p className="text-xs text-muted-foreground">Response rate: {mockDashboardMetrics.responseRate}</p>
+            <div className="flex items-center mt-2">
+              <TrendingUpIcon className="h-3 w-3 text-green-500 mr-1" />
+              <span className="text-xs text-green-500">+12% this week</span>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Interviews Practiced</CardTitle>
+            <MicIcon className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{mockDashboardMetrics.interviewsPracticed}</div>
+            <p className="text-xs text-muted-foreground">Avg score: {mockDashboardMetrics.averageScore}</p>
+            <Progress value={85} className="mt-2" />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Applications Active</CardTitle>
+            <TargetIcon className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{mockDashboardMetrics.applicationsSubmitted}</div>
+            <p className="text-xs text-muted-foreground">{mockDashboardMetrics.interviewsScheduled} interviews scheduled</p>
+            <div className="flex gap-1 mt-2">
+              <Badge variant="outline" className="text-xs">Full-Stack</Badge>
+              <Badge variant="outline" className="text-xs">Backend</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Recent Activity & Progress Tabs */}
       <Tabs defaultValue="activity" className="w-full">

@@ -12,7 +12,7 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function Sidebar({ className }: SidebarProps) {
   return (
     <aside
-      className={cn("hidden md:block w-64 border-r bg-background p-4 sticky top-14 h-[calc(100vh-56px)]", className)}
+      className={cn("w-64 border-r bg-background p-4 sticky top-14 h-[calc(100vh-56px)]", className)}
     >
       <nav className="space-y-2">
         <Link
