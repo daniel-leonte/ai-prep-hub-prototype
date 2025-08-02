@@ -1,12 +1,17 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { FileTextIcon, MailIcon, BriefcaseIcon, MicIcon } from "lucide-react"
+import { SignupForm } from "@/components/signup-form"
+import { DemoInfoBanner } from "@/components/demo-info-banner"
+import { DemoBadge } from "@/components/ui/demo-badge"
 
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-12 py-8">
+      {/* Demo Info Banner */}
+      <DemoInfoBanner />
+      
       {/* Hero Section */}
       <section className="text-center py-16 bg-gradient-to-b from-background to-muted rounded-lg shadow-sm">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
@@ -50,9 +55,14 @@ export default function HomePage() {
                 <p className="text-sm text-muted-foreground">Generate human-like emails based on job details.</p>
               </div>
             </div>
-            <Button asChild className="w-full">
-              <Link href="/apply/resume-builder">Start Applying</Link>
-            </Button>
+            <div className="space-y-2">
+              <Button asChild className="w-full">
+                <Link href="/apply/resume-builder">Start Applying</Link>
+              </Button>
+              <div className="flex justify-center">
+                <DemoBadge size="sm" />
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -83,9 +93,14 @@ export default function HomePage() {
                 <p className="text-sm text-muted-foreground">Simulate interviews with flexible input/output modes.</p>
               </div>
             </div>
-            <Button asChild className="w-full">
-              <Link href="/interview/job-listings">Start Interview Prep</Link>
-            </Button>
+            <div className="space-y-2">
+              <Button asChild className="w-full">
+                <Link href="/interview/job-listings">Start Interview Prep</Link>
+              </Button>
+              <div className="flex justify-center">
+                <DemoBadge size="sm" />
+              </div>
+            </div>
           </CardContent>
         </Card>
       </section>
@@ -96,9 +111,11 @@ export default function HomePage() {
         <p className="text-lg text-muted-foreground mb-8">
           Join AI Prep Hub today and simplify your job preparation journey.
         </p>
-        <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-          <Input type="email" placeholder="Enter your email" className="flex-1" />
-          <Button type="submit">Sign Up (Dummy)</Button>
+        <div className="max-w-md mx-auto">
+          <SignupForm 
+            variant="inline"
+            className="max-w-md mx-auto"
+          />
         </div>
       </section>
     </div>

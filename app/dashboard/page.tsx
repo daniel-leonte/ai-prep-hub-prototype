@@ -13,6 +13,7 @@ import { FileTextIcon, MailIcon, BriefcaseIcon, MicIcon, TrendingUpIcon, CheckCi
 import { mockDashboardMetrics, mockRecentActivity, mockCompletedInterviews, mockUserProfile } from "@/lib/mockData"
 import { JobInputDialog } from "@/components/job-input/JobInputDialog"
 import { JobManagement } from "@/components/job-input/JobManagement"
+import { DemoBadge } from "@/components/ui/demo-badge"
 
 export default function DashboardPage() {
   const [isJobDialogOpen, setIsJobDialogOpen] = useState(false)
@@ -92,29 +93,51 @@ export default function DashboardPage() {
           <CardTitle>Quick Start</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-          <Button onClick={() => setIsJobDialogOpen(true)} variant="outline" className="border-dashed border-2">
-            <PlusIcon className="mr-2 h-4 w-4" /> Add Job
-          </Button>
-          <Button asChild>
-            <Link href="/apply/resume-builder">
-              <FileTextIcon className="mr-2 h-4 w-4" /> Build Resume
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link href="/apply/email-crafter">
-              <MailIcon className="mr-2 h-4 w-4" /> Craft Email
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link href="/interview/job-listings">
-              <BriefcaseIcon className="mr-2 h-4 w-4" /> Browse Jobs
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link href="/interview/mock-room">
-              <MicIcon className="mr-2 h-4 w-4" /> Start Mock Interview
-            </Link>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button onClick={() => setIsJobDialogOpen(true)} variant="outline" className="border-dashed border-2">
+              <PlusIcon className="mr-2 h-4 w-4" /> Add Job
+            </Button>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Button asChild>
+              <Link href="/apply/resume-builder">
+                <FileTextIcon className="mr-2 h-4 w-4" /> Build Resume
+              </Link>
+            </Button>
+            <div className="flex justify-center">
+              <DemoBadge size="sm" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Button asChild>
+              <Link href="/apply/email-crafter">
+                <MailIcon className="mr-2 h-4 w-4" /> Craft Email
+              </Link>
+            </Button>
+            <div className="flex justify-center">
+              <DemoBadge size="sm" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Button asChild>
+              <Link href="/interview/job-listings">
+                <BriefcaseIcon className="mr-2 h-4 w-4" /> Browse Jobs
+              </Link>
+            </Button>
+            <div className="flex justify-center">
+              <DemoBadge size="sm" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Button asChild>
+              <Link href="/interview/mock-room">
+                <MicIcon className="mr-2 h-4 w-4" /> Start Mock Interview
+              </Link>
+            </Button>
+            <div className="flex justify-center">
+              <DemoBadge size="sm" />
+            </div>
+          </div>
         </CardContent>
       </Card>
 

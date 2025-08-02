@@ -9,6 +9,9 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { MenuIcon } from "lucide-react"
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar"
+import { DemoBadge } from "@/components/ui/demo-badge"
+import { SignupForm } from "@/components/signup-form"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export function Navbar() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false)
@@ -70,28 +73,54 @@ export function Navbar() {
       </div>
 
       <Dialog open={isSignInModalOpen} onOpenChange={setIsSignInModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Sign In</DialogTitle>
-            <DialogDescription>Enter your credentials to sign in. This is a dummy form.</DialogDescription>
+            <DialogTitle>Welcome to AI Prep Hub</DialogTitle>
+            <DialogDescription>Choose how you'd like to proceed</DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">
-                Email
-              </Label>
-              <Input id="email" type="email" defaultValue="user@example.com" className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="password" className="text-right">
-                Password
-              </Label>
-              <Input id="password" type="password" defaultValue="password123" className="col-span-3" />
-            </div>
-          </div>
-          <Button type="submit" onClick={() => setIsSignInModalOpen(false)}>
-            Sign In
-          </Button>
+          
+          <Tabs defaultValue="signup" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="signup">Join Waitlist</TabsTrigger>
+              <TabsTrigger value="demo">Demo Sign In</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="signup" className="mt-4">
+              <SignupForm 
+                variant="compact"
+                title="Join Early Access"
+                description="Get notified when AI Prep Hub launches"
+                onSuccess={() => setIsSignInModalOpen(false)}
+              />
+            </TabsContent>
+            
+            <TabsContent value="demo" className="mt-4 space-y-4">
+              <div className="flex items-center gap-2 mb-3">
+                <DemoBadge size="sm" />
+                <span className="text-sm font-medium">Demo Authentication</span>
+              </div>
+              <div className="grid gap-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="email" className="text-right">
+                    Email
+                  </Label>
+                  <Input id="email" type="email" defaultValue="demo@example.com" className="col-span-3" />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="password" className="text-right">
+                    Password
+                  </Label>
+                  <Input id="password" type="password" defaultValue="demo123" className="col-span-3" />
+                </div>
+              </div>
+              <Button type="submit" onClick={() => setIsSignInModalOpen(false)} className="w-full">
+                Sign In (Demo)
+              </Button>
+              <p className="text-xs text-muted-foreground text-center">
+                This is a demo sign-in. No actual authentication is performed.
+              </p>
+            </TabsContent>
+          </Tabs>
         </DialogContent>
       </Dialog>
     </header>
