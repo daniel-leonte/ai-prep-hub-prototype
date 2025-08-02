@@ -180,7 +180,7 @@ Apply by sending your resume and a cover letter explaining why you're excited ab
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <SparklesIcon className="h-5 w-5" />
@@ -193,7 +193,7 @@ Apply by sending your resume and a cover letter explaining why you're excited ab
 
         {!showPreview ? (
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 h-auto sm:h-10">
               <TabsTrigger value="url" className="flex items-center gap-2">
                 <LinkIcon className="h-4 w-4" />
                 Import from URL
@@ -296,16 +296,16 @@ Requirements:
 • Bachelor's degree in Computer Science or equivalent
 
 Tech Stack: Python, JavaScript, React, PyTorch, PostgreSQL"
-                  rows={12}
+                  rows={8}
                   value={jobPostingText}
                   onChange={(e) => setJobPostingText(e.target.value)}
                   className="font-mono text-sm"
                   disabled={isParsingText}
                 />
                 
-                <div className="text-xs text-muted-foreground flex justify-between">
+                <div className="text-xs text-muted-foreground flex flex-col sm:flex-row sm:justify-between gap-1">
                   <span>{jobPostingText.length} characters</span>
-                  <span>💡 Tip: Include company info, requirements, and tech stack for best results</span>
+                  <span className="hidden sm:block">💡 Tip: Include company info, requirements, and tech stack for best results</span>
                 </div>
                 
                 {isParsingText && (

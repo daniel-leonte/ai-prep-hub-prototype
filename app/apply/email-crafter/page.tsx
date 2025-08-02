@@ -233,7 +233,7 @@ export default function EmailCrafterPage() {
       </Card>
 
       <Dialog open={isEmailModalOpen} onOpenChange={setIsEmailModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>AI-Generated Email for {selectedJob.title}</DialogTitle>
             <DialogDescription>
@@ -242,7 +242,7 @@ export default function EmailCrafterPage() {
           </DialogHeader>
           
           <Tabs defaultValue="preview" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
               <TabsTrigger value="preview">Email Preview</TabsTrigger>
               <TabsTrigger value="variations">Alternative Versions</TabsTrigger>
               <TabsTrigger value="tips">Sending Tips</TabsTrigger>

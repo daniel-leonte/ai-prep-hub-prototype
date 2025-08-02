@@ -150,7 +150,7 @@ export default function ResumeBuilderPage() {
       )}
 
       <Dialog open={isPreviewModalOpen} onOpenChange={setIsPreviewModalOpen}>
-        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>AI-Tailored Resume for {selectedJob.title}</DialogTitle>
             <DialogDescription>
@@ -159,14 +159,14 @@ export default function ResumeBuilderPage() {
           </DialogHeader>
           
           <Tabs defaultValue="comparison" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
               <TabsTrigger value="comparison">Before/After</TabsTrigger>
               <TabsTrigger value="analysis">AI Analysis</TabsTrigger>
               <TabsTrigger value="tips">Tips & Next Steps</TabsTrigger>
             </TabsList>
             
             <TabsContent value="comparison" className="mt-4">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg">Original Resume</CardTitle>

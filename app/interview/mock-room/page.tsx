@@ -121,7 +121,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
       <div className="flex justify-between items-center mb-4">
         <Button variant="outline" asChild>
           <Link href="/interview/job-listings">
-            <ArrowLeftIcon className="mr-2 h-4 w-4" /> Back to Job Listings
+            <ArrowLeftIcon className="mr-2 h-4 w-4" /> Back
           </Link>
         </Button>
         <ToggleGroup
@@ -210,7 +210,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
       </Button>
 
       <Dialog open={isFeedbackModalOpen} onOpenChange={setIsFeedbackModalOpen}>
-        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Interview Feedback for {selectedJobTitle}</DialogTitle>
             <DialogDescription>
@@ -219,7 +219,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
           </DialogHeader>
           
           <Tabs defaultValue="overview" className="w-full mt-4">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="detailed">Detailed Feedback</TabsTrigger>
               <TabsTrigger value="improvement">Improvement Plan</TabsTrigger>
@@ -227,7 +227,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
             </TabsList>
             
             <TabsContent value="overview" className="mt-4 space-y-4">
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg">Overall Score</CardTitle>
@@ -439,7 +439,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
             </TabsContent>
             
             <TabsContent value="resources" className="mt-4">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card>
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -498,7 +498,7 @@ Let's start with an easy one: Tell me about yourself and what interests you abou
             </TabsContent>
           </Tabs>
           
-          <div className="flex gap-2 mt-6">
+          <div className="flex flex-col sm:flex-row gap-2 mt-6">
             <Button className="flex-1" onClick={() => setIsFeedbackModalOpen(false)}>
               <ListChecksIcon className="mr-2 h-4 w-4" /> Save Feedback & Continue
             </Button>
