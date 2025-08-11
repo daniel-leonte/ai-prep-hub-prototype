@@ -1,87 +1,53 @@
-# AI Prep Hub Prototype
+# AI Prep Hub
 
-## Overview
+A modern web application prototype built with Next.js for helping developers prepare for AI startup interviews. Features resume building, email crafting, and mock interview practice.
 
-AI Prep Hub is a prototype web application designed to help engineers prepare for applying and interviewing at early-stage AI startups backed by Y Combinator (YC). The platform focuses on two main stages:
+## 🛠 Tech Stack
 
-1. **Stage 1: Applying** - Tailor resumes and craft personalized emails to maximize chances of getting an interview.
-2. **Stage 2: Interviewing** - Browse AI-generated job postings, select roles, and practice mock interviews with flexible modes (text or audio), followed by feedback and actionable steps.
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe development  
+- **Tailwind CSS** - Utility-first styling
+- **Shadcn UI** - Modern component library
+- **Lucide Icons** - Beautiful icon set
 
-This is a **non-functional prototype** built purely for UI demonstration and idea validation. It uses dummy data, placeholders, and static interactions (e.g., modals and toggles) to simulate the user experience. No real AI, backend, or data persistence is implemented—it's meant for sharing with potential users to gather feedback on the vision.
+## 🚀 Quick Start
 
-The UI is simple, intuitive, and user-friendly, allowing users to "open and start preparing" with minimal friction. It's responsive for desktop and mobile, with a clean blue/gray color scheme.
+```bash
+# Install dependencies
+pnpm install
 
-## Features (Simulated in Prototype)
+# Run development server
+pnpm dev
 
-- **Navigation**: Top bar with links to Home, Stage 1 (Resume Builder, Email Crafter), Stage 2 (Job Listings, Mock Room), and Dashboard. Sidebar for quick access on wider screens.
-- **Home Page**: Landing hero with stage overviews and a "Get Started" button.
-- **Dashboard**: Progress metrics, quick-start buttons, and tabs for stage-specific views.
-- **Resume Builder**: Upload resume/job link, generate tailored preview (dummy modal).
-- **Email Crafter**: Input job details, generate email (dummy preview).
-- **Job Listings**: Searchable list of dummy AI-generated job postings (card-based, like LinkedIn/YC), with details modal and "Start Interview" button.
-- **Mock Room**: Simulate interviews for selected jobs with mode toggles (text chat or audio placeholders), end with feedback modal (accordion for strengths/improvements/actionable steps).
-- **General**: Modals for previews/feedback, tables for history, skeletons for loading states—all dummy.
+# Build for production
+pnpm build
+```
 
-## Tech Stack
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-- **Framework**: Next.js (App Router) with TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: Shadcn UI (e.g., Buttons, Cards, Modals, Tabs, Accordions, Toggles)
-- **Icons**: Lucide-react (integrated via Shadcn)
-- No additional dependencies beyond setup; keeps it lightweight.
+## ✨ Features
 
-## Installation
+- **Resume Builder** - Tailored resume generation for different roles
+- **Email Crafter** - Personalized outreach email templates
+- **Job Listings** - Browse AI startup opportunities
+- **Mock Interviews** - Practice with realistic interview scenarios
+- **Dashboard** - Track progress and activities
+- **Responsive Design** - Works on desktop and mobile
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/your-username/ai-prep-hub-prototype.git
-   cd ai-prep-hub-prototype
-   ```
+## 📁 Project Structure
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
+```
+├── app/                 # Next.js App Router pages
+├── components/         # Reusable UI components
+├── lib/               # Utilities and mock data
+├── hooks/             # Custom React hooks
+└── public/            # Static assets
+```
 
-3. Run the development server:
-   ```
-   npm run dev
-   ```
+## 🎯 Purpose
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+This is a **UI prototype** built for demonstration purposes. It showcases modern React development patterns, component architecture, and responsive design principles. All data is mocked - no backend integration.
 
-Note: If Shadcn UI components need re-initialization, run `npx shadcn-ui@latest add [component-name]` as needed.
+## 📄 License
 
-## Usage
-
-- Navigate through pages via the top bar or sidebar.
-- Interact with forms and buttons—they trigger dummy modals or UI updates (no real functionality).
-- Use this prototype to demo the app's flow: e.g., go to Job Listings, "view" a job, start a mock interview, switch modes, and "end" for feedback.
-- Share the running app or screenshots/videos with potential users for feedback on usability and features.
-
-Since it's a prototype, expect static content—customize dummy text in the code if needed for presentations.
-
-## Project Structure
-
-- `/app`: Next.js pages (e.g., `page.tsx` for Home, `dashboard/page.tsx`, etc.)
-- `/components`: Reusable Shadcn-based components (e.g., nav bar, modals)
-- `/lib`: Utility functions (if any)
-- `/public`: Static assets (e.g., icons, placeholders)
-
-## Contributing
-
-This is a prototype for validation. If you'd like to contribute UI improvements or dummy enhancements:
-1. Fork the repo.
-2. Create a feature branch.
-3. Commit changes.
-4. Open a pull request.
-
-Feedback on the idea is welcome—open an issue to discuss!
-
-## License
-
-MIT License. Feel free to use and modify for non-commercial purposes. See [LICENSE](LICENSE) for details.
-
----
-
-Built on August 02, 2025. For questions, contact [your-email@example.com].
+MIT License - feel free to use for learning and reference.
