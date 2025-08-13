@@ -2,7 +2,7 @@
 
 A modern web application prototype built with Next.js for helping developers prepare for AI startup interviews. Features resume building, email crafting, and mock interview practice.
 
-[Live Demo](https://ai-prep-hub-prototype.vercel.app/)
+[Live Demo](https://ai-prep-hub-prototype.vercel.app/) - DEMO WITH MOCK DATA
 
 ## 🛠 Tech Stack
 
